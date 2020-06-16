@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.reversing.android-library-deobfuscator</groupId>
+    <artifactId>android-library-deobfuscator-core</artifactId>
+    <version>0.1</version>
+
+    <properties>
+        <version.roaster>2.21.2.Final</version.roaster>
+    </properties>
+    <repositories>
+        <repository>
+            <id>ProjectRepo</id>
+            <name>ProjectRepo</name>
+            <url>file://${project.basedir}/libs</url>
+        </repository>
+    </repositories>
+    <dependencies>
+        <!-- https://mvnrepository.com/artifact/com.beust/jcommander -->
+        <dependency>
+            <groupId>com.beust</groupId>
+            <artifactId>jcommander</artifactId>
+            <version>1.78</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.jetbrains/annotations -->
+        <dependency>
+            <groupId>org.jetbrains</groupId>
+            <artifactId>annotations</artifactId>
+            <version>19.0.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>fr.inria.gforge.spoon</groupId>
+            <artifactId>spoon-core</artifactId>
+            <version>8.2.0-beta-12</version>
+        </dependency>
+
+
+    </dependencies>
+
+    <build>
+        <sourceDirectory>src</sourceDirectory>
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.3</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.2.1</version>
+                <configuration>
+                    <executable>java</executable>
+                    <arguments>
+                        <argument>-Djava.util.logging.config.file=logging.properties</argument>
+                        <argument>-classpath</argument>
+                        <classpath />
+                        <argument>org.reversing.ald.Main</argument>
+                        <argument>${appRoot}</argument>
+                        <argument>-l</argument>
+                        <argument>${libPath}</argument>
+                        <argument>-o</argument>
+                        <argument>${outPath}</argument>
+                        <argument>-c</argument>
+                        <argument>${config}</argument>
+                        <argument>-t</argument>
+                        <argument>${translationOut}</argument>
+                    </arguments>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
